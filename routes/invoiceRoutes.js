@@ -8,10 +8,6 @@ router
   .get(protect, manager, invoiceController.getInvoices)
   .post(protect, manager, invoiceController.createInvoice);
 
-// router
-//   .route("/project/:projectId")
-//   .get(protect, invoiceController.getProjectInvoices);
-
 router
   .route("/:id/status")
   .put(protect, manager, invoiceController.updateInvoiceStatus);
