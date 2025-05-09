@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const morgan = require("morgan");
 
 // Load environment variables
@@ -17,6 +18,15 @@ const userRoutes = require("./routes/userRoutes");
 
 // Initialize Express app
 const app = express();
+
+// Middleware
+app.use(
+  cors({
+    origin:
+      "https://business-frontend-git-main-chsathwik-641s-projects.vercel.app",
+    credentials: true, // If you need cookies or authentication headers
+  })
+);
 
 app.use(express.json());
 app.use(morgan("dev"));
