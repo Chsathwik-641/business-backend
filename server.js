@@ -20,7 +20,14 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 
 // Middleware
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin:
+      "https://business-frontend-git-main-chsathwik-641s-projects.vercel.app",
+    credentials: true, // If you need cookies or authentication headers
+  })
+);
+
 app.use(express.json());
 app.use(morgan("dev"));
 
