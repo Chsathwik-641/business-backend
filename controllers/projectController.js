@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Project = require("../models/Project");
-const Client = require("../models/client");
+// const Client = require("../models/client")
+const Client = require("../models/Client");
 const User = require("../models/User");
 const Task = require("../models/Task");
 const TeamAssignment = require("../models/TeamAssignment");
