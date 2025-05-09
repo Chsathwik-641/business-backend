@@ -1,17 +1,11 @@
 const asyncHandler = require("express-async-handler");
 const Client = require("../models/Client");
 
-// @desc    Get all clients
-// @route   GET /api/clients
-// @access  Private
 const getClients = asyncHandler(async (req, res) => {
   const clients = await Client.find().populate("addedBy", "name email");
   res.json(clients);
 });
 
-// @desc    Get single client
-// @route   GET /api/clients/:id
-// @access  Private
 const getClient = asyncHandler(async (req, res) => {
   const client = await Client.findById(req.params.id).populate(
     "addedBy",
@@ -26,9 +20,6 @@ const getClient = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Create a client
-// @route   POST /api/clients
-// @access  Private (Admin/Manager)
 const createClient = asyncHandler(async (req, res) => {
   const { name, email, company } = req.body;
 
@@ -54,9 +45,6 @@ const createClient = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Update a client
-// @route   PUT /api/clients/:id
-// @access  Private (Admin/Manager)
 const updateClient = asyncHandler(async (req, res) => {
   const client = await Client.findById(req.params.id);
 
@@ -73,12 +61,8 @@ const updateClient = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Delete a client
-// @route   DELETE /api/clients/:id
-// @access  Private (Admin)
 const deleteClient = asyncHandler(async (req, res) => {
   const client = await Client.findById(req.params.id);
-  // console.log("delete client req:", client);
   if (client) {
     await client.deleteOne();
     res.json({ message: "Client removed" });

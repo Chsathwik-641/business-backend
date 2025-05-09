@@ -64,36 +64,12 @@ const getInvoices = asyncHandler(async (req, res) => {
   res.json(invoices);
 });
 
-// @desc    Get invoices for a specific project
-// @route   GET /api/invoices/project/:projectId
-// @access  Private
-// const getProjectInvoices = asyncHandler(async (req, res) => {
-//   const project = await Project.findById(req.params.projectId);
-
-//   if (!project) {
-//     res.status(404);
-//     throw new Error("Project not found");
-//   }
-
-//   // Check if user has access to this project
-//   if (req.user.role !== "admin" && !project.manager.equals(req.user._id)) {
-//     res.status(403);
-//     throw new Error("Not authorized to view invoices for this project");
-//   }
-
-//   const invoices = await Invoice.find({ project: req.params.projectId });
-//   res.json(invoices);
-// });
-
-// @desc    Create an invoice
-// @route   POST /api/invoices
-// @access  Private (Admin/Manager)
 const createInvoice = asyncHandler(async (req, res) => {
   const { projectId, amount, dueDate } = req.body;
 
   // Verify project exists
   const project = await Project.findById(projectId);
-  console.log("came here project for id :", project);
+
   if (!project) {
     res.status(404);
     throw new Error("Project not found");

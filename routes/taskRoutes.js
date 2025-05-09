@@ -7,13 +7,6 @@ router
   .route("/project/:projectId")
   .get(protect, taskController.getTasksByProject);
 
-// router.route("/me").get(protect, taskController.getMyTasks);
-
 router.route("/").post(protect, manager, taskController.createTask);
-
-// router
-//   .route("/:id")
-//   .put(protect, taskController.updateTask)
-//   .delete(protect, manager, taskController.deleteTask);
 
 module.exports = router;

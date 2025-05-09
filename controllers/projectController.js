@@ -33,28 +33,6 @@ const getProject = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Create a project
-// @route   POST /api/projects
-// @access  Private (Admin/Manager)
-// const createProject = asyncHandler(async (req, res) => {
-//   const { title, description, startDate, endDate, status } = req.body;
-
-//   const project = await Project.create({
-//     title,
-//     description,
-//     status,
-//     startDate,
-//     endDate,
-//     manager: req.user._id, // Automatically assign the logged-in user as manager
-//   });
-
-//   if (project) {
-//     res.status(201).json(project);
-//   } else {
-//     res.status(400);
-//     throw new Error("Invalid project data");
-//   }
-// });
 const createProject = asyncHandler(async (req, res) => {
   const { title, description, startDate, endDate, status, manager } = req.body;
 
@@ -69,7 +47,7 @@ const createProject = asyncHandler(async (req, res) => {
     status,
     startDate,
     endDate,
-    manager, // 👈 assigned from frontend selection
+    manager,
   });
 
   if (project) {
@@ -153,39 +131,39 @@ const deleteProject = asyncHandler(async (req, res) => {
 // @desc    Get tasks for a project
 // @route   GET /api/projects/:id/tasks
 // @access  Private
-const getProjectTasks = asyncHandler(async (req, res) => {
-  const project = await Project.findById(req.params.id);
+// const getProjectTasks = asyncHandler(async (req, res) => {
+//   const project = await Project.findById(req.params.id);
 
-  if (project) {
-    // Check if user has access to this project
-    if (req.user.role === "admin" || project.manager._id.equals(req.user._id)) {
-      const tasks = await Task.find({ project: project._id }).populate(
-        "assignedTo",
-        "name email"
-      );
-      res.json(tasks);
-    } else {
-      // Check if user is assigned to this project
-      const assignment = await TeamAssignment.findOne({
-        project: project._id,
-        user: req.user._id,
-      });
-      if (assignment) {
-        const tasks = await Task.find({
-          project: project._id,
-          assignedTo: req.user._id,
-        }).populate("assignedTo", "name email");
-        res.json(tasks);
-      } else {
-        res.status(403);
-        throw new Error("Not authorized to access tasks for this project");
-      }
-    }
-  } else {
-    res.status(404);
-    throw new Error("Project not found");
-  }
-});
+//   if (project) {
+//     // Check if user has access to this project
+//     if (req.user.role === "admin" || project.manager._id.equals(req.user._id)) {
+//       const tasks = await Task.find({ project: project._id }).populate(
+//         "assignedTo",
+//         "name email"
+//       );
+//       res.json(tasks);
+//     } else {
+//       // Check if user is assigned to this project
+//       const assignment = await TeamAssignment.findOne({
+//         project: project._id,
+//         user: req.user._id,
+//       });
+//       if (assignment) {
+//         const tasks = await Task.find({
+//           project: project._id,
+//           assignedTo: req.user._id,
+//         }).populate("assignedTo", "name email");
+//         res.json(tasks);
+//       } else {
+//         res.status(403);
+//         throw new Error("Not authorized to access tasks for this project");
+//       }
+//     }
+//   } else {
+//     res.status(404);
+//     throw new Error("Project not found");
+//   }
+// });
 
 module.exports = {
   getProjects,
