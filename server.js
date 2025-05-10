@@ -18,8 +18,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "*.vercel.app/",
+    // methods: ["GET", "POST", "PUT", "DELETE"],
     // credentials: true,
   })
 );
