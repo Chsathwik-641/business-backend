@@ -18,8 +18,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://business-frontend-phi.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin:
+      "https://business-frontend-git-main-chsathwik-641s-projects.vercel.app",
     credentials: true,
   })
 );
