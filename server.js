@@ -18,7 +18,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*.vercel.app/,localhost/3000",
+    origin: ["*", ".vercel.app", "localhost:3000"],
     // methods: ["GET", "POST", "PUT", "DELETE"],
     // credentials: true,
   })
