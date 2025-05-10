@@ -20,7 +20,7 @@ app.use(
   cors({
     origin: "*.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    // credentials: true,
   })
 );
 app.use(express.json());
