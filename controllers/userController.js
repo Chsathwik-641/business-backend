@@ -91,7 +91,6 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
-e;
 const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id).select("-password");
 
