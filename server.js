@@ -18,7 +18,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://business-frontend-phi.vercel.app",
+    origin: "*.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
