@@ -18,9 +18,9 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["*", ".vercel.app", "http://localhost:3000/"],
-    // methods: ["GET", "POST", "PUT", "DELETE"],
-    // credentials: true,
+    origin: "https://business-frontend-phi.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"],
+    credentials: true,
   })
 );
 app.use(express.json());
