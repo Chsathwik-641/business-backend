@@ -1,21 +1,19 @@
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 
-dotenv.config(); // Load environment variables
+dotenv.config();
 
-// Configure your email transport (use your email service's credentials)
 const transport = nodemailer.createTransport({
-  host: "sandbox.smtp.mailtrap.io", // Update to your real SMTP service
-  port: 2525,
+  service: "gmail",
   auth: {
-    user: "f125752bd2d42a",
-    pass: process.env.YOUR_FULL_PASSWORD, // Ensure your environment variable is set
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
 const sendInvoiceEmail = async (recipientEmail, invoiceId) => {
-  // const invoiceUrl = `${process.env.FRONTEND_URL}/invoices/${invoiceId}`; // Or backend download link
-  const invoiceUrl = `#`;
+  const invoiceUrl = `${process.env.FRONTEND_URL}/invoices/${invoiceId}`;
+
   const mailOptions = {
     from: `"Your Company" <${process.env.EMAIL_USER}>`,
     to: recipientEmail,
@@ -29,7 +27,6 @@ const sendInvoiceEmail = async (recipientEmail, invoiceId) => {
   };
 
   try {
-    // Use the correct variable name 'transport'
     await transport.sendMail(mailOptions);
     console.log(`Invoice email sent to ${recipientEmail}`);
   } catch (error) {
