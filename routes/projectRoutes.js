@@ -14,6 +14,4 @@ router
   .post(protect, manager, projectController.updateProject)
   .delete(protect, admin, projectController.deleteProject);
 
-// router.route("/:id/tasks").get(protect, projectController.getProjectTasks);
-
 module.exports = router;

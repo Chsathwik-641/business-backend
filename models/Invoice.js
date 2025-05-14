@@ -23,6 +23,10 @@ const invoiceSchema = mongoose.Schema(
     paidDate: {
       type: Date,
     },
+    clientInfo: {
+      name: { type: String },
+      email: { type: String },
+    },
   },
   {
     timestamps: true,

@@ -11,18 +11,28 @@ const transport = nodemailer.createTransport({
   },
 });
 
-const sendInvoiceEmail = async (recipientEmail, invoiceId) => {
-  const invoiceUrl = `${process.env.FRONTEND_URL}/invoices/${invoiceId}`;
+const sendInvoiceEmail = async (recipientEmail, fullInvoice) => {
+  const { project, amount, dueDate, status, clientInfo } = fullInvoice;
+  const clientName = clientInfo.name;
+  const clientEmail = clientInfo.email;
+  const projectTitle = project.title;
 
   const mailOptions = {
     from: `"Your Company" <${process.env.EMAIL_USER}>`,
     to: recipientEmail,
     subject: "New Invoice Available",
     html: `
-      <p>Hello,</p>
-      <p>Your invoice is ready. You can view or download it using the link below:</p>
-      <a href="${invoiceUrl}">${invoiceUrl}</a>
-      <p>Thank you!</p>
+      <p>Hello ${clientName},</p>
+      <p>Your invoice is ready for the project: <strong>${projectTitle}</strong></p>
+      <p><strong>Invoice ID:</strong> ${fullInvoice._id}</p>
+      <p><strong>Amount:</strong> $${amount}</p>
+      <p><strong>Due Date:</strong> ${dueDate.toDateString()}</p>
+      <p><strong>Status:</strong> ${status}</p>
+      <p><strong>Client Name:</strong> ${clientName}</p>
+      <p><strong>Client Email:</strong> ${clientEmail}</p>
+      <p>You can view or download the invoice using the link below:</p>
+    
+      <p>Thank you for your business!</p>
     `,
   };
 

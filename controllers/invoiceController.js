@@ -16,6 +16,7 @@ const downloadInvoice = asyncHandler(async (req, res) => {
   }
 
   const doc = new PDFDocument();
+  console.log("came to the invoices", invoice.project.client);
 
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader(
@@ -70,9 +71,11 @@ const createInvoice = asyncHandler(async (req, res) => {
     throw new Error("Project not found");
   }
 
-  if (req.user.role !== "admin" && !project.manager.equals(req.user._id)) {
-    res.status(403);
-    throw new Error("Not authorized to create invoices for this project");
+  if (!project.client) {
+    res.status(400);
+    throw new Error(
+      "Client not assigned to this project. Cannot create invoice."
+    );
   }
 
   const invoice = await Invoice.create({
@@ -80,15 +83,24 @@ const createInvoice = asyncHandler(async (req, res) => {
     amount,
     status: "pending",
     dueDate,
+    clientInfo: {
+      name: project.client.name,
+      email: project.client.email,
+    },
   });
-  try {
-    if (project.client && project.client.email) {
-      await sendInvoiceEmail(project.client.email, invoice._id);
-    }
-  } catch (err) {
-    console.error("Failed to send invoice email:", err.message);
+
+  const fullInvoice = await Invoice.findById(invoice._id).populate(
+    "project",
+    "title"
+  );
+
+  if (project.client.email) {
+    sendInvoiceEmail(project.client.email, fullInvoice).catch((err) => {
+      console.error("Failed to send invoice email:", err.message);
+    });
   }
-  res.status(201).json(invoice);
+
+  res.status(201).json(fullInvoice);
 });
 
 const updateInvoiceStatus = asyncHandler(async (req, res) => {

@@ -5,15 +5,6 @@ const { protect, manager } = require("../middleware/auth");
 
 router.route("/project/:projectId").get(protect, teamController.getProjectTeam);
 
-router.route("/").post(protect, /*manager*/ teamController.assignTeamMember);
-
-// router
-//   .route("/:id")
-//   .delete(protect, manager, /*manager*/ teamController.removeTeamMember);
-
-// router.route("/user/:userId").get(protect, teamController.getUserProjects);
-// router
-//   .route("/bulk")
-//   .post(protect, manager, teamController.assignMultipleTeamMembers);
+router.route("/").post(protect, teamController.assignTeamMember);
 
 module.exports = router;

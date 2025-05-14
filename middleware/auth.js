@@ -5,22 +5,18 @@ const User = require("../models/User");
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  // Check if there is an authorization header
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
   ) {
     try {
-      // Get token from header
       token = req.headers.authorization.split(" ")[1];
 
       console.log("Token extracted from header:", token);
 
-      // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       console.log("Decoded token:", decoded);
 
-      // Get user from the token
       req.user = await User.findById(decoded.id).select("-password");
       console.log("User from token:", req.user);
 
@@ -30,7 +26,7 @@ const protect = asyncHandler(async (req, res, next) => {
         throw new Error("Not authorized, user not found");
       }
 
-      next(); // Proceed to the next middleware or route handler
+      next();
     } catch (error) {
       console.error("Error in token verification:", error);
       res.status(401);
@@ -38,7 +34,6 @@ const protect = asyncHandler(async (req, res, next) => {
     }
   }
 
-  // If no token is present in the authorization header
   if (!token) {
     console.log("No token in authorization header");
     res.status(401);
