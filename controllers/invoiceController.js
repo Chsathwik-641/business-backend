@@ -42,18 +42,7 @@ const downloadInvoice = asyncHandler(async (req, res) => {
   doc.end();
 });
 const getInvoices = asyncHandler(async (req, res) => {
-  let invoices;
-
-  if (req.user.role === "admin") {
-    invoices = await Invoice.find().populate("project", "title client");
-  } else {
-    const projects = await Project.find({ manager: req.user._id });
-    const projectIds = projects.map((p) => p._id);
-    invoices = await Invoice.find({ project: { $in: projectIds } }).populate(
-      "project",
-      "title client"
-    );
-  }
+  const invoices = await Invoice.find().populate("project", "title client");
 
   res.json(invoices);
 });
