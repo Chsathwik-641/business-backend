@@ -31,16 +31,14 @@ mongoose
   .then(() => console.log("MongoDB connected successfully"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// app.use("/api/auth", authRoutes);
-// app.use("/api/clients", clientRoutes);
-// app.use("/api/projects", projectRoutes);
-// app.use("/api/team", teamRoutes);
-// app.use("/api/invoices", invoiceRoutes);
-// app.use("/api/tasks", taskRoutes);
-// app.use("/api/users", userRoutes);
-app.get("/", (req, res) => {
-  res.send("Backend running!");
-});
+app.use("/api/auth", authRoutes);
+app.use("/api/clients", clientRoutes);
+app.use("/api/projects", projectRoutes);
+app.use("/api/team", teamRoutes);
+app.use("/api/invoices", invoiceRoutes);
+app.use("/api/tasks", taskRoutes);
+app.use("/api/users", userRoutes);
+
 const errorHandler = require("./middleware/error");
 app.use(errorHandler);
 
