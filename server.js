@@ -39,7 +39,7 @@ mongoose
 // app.use("/api/tasks", taskRoutes);
 // app.use("/api/users", userRoutes);
 app.get("/", (req, res) => {
-  res.send("🚀 Backend running!");
+  res.send("Backend running!");
 });
 const errorHandler = require("./middleware/error");
 app.use(errorHandler);
