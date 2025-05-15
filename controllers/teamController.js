@@ -14,8 +14,6 @@ const getProjectTeam = asyncHandler(async (req, res) => {
   const teamAssignments = await TeamAssignment.find({
     project: req.params.projectId,
   }).populate("user", "name email role");
-  console.log("got team here:", teamAssignments);
-
   res.json(teamAssignments);
 });
 

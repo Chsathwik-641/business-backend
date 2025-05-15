@@ -8,5 +8,4 @@ router
   .get(protect, taskController.getTasksByProject);
 
 router.route("/").post(protect, manager, taskController.createTask);
-
 module.exports = router;
