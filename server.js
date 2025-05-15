@@ -16,14 +16,13 @@ const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-// app.use(
-//   cors({
-//     origin:
-//       "https://business-frontend-git-main-chsathwik-641s-projects.vercel.app",
-//     credentials: true,
-//   })
-// );
-app.use(cors());
+app.use(
+  cors({
+    origin:
+      "https://business-frontend-git-main-chsathwik-641s-projects.vercel.app",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(morgan("dev"));
 
@@ -33,12 +32,12 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 app.use("/api/auth", authRoutes);
-// app.use("/api/clients", clientRoutes);
-// app.use("/api/projects", projectRoutes);
-// app.use("/api/team", teamRoutes);
-// app.use("/api/invoices", invoiceRoutes);
-// app.use("/api/tasks", taskRoutes);
-// app.use("/api/users", userRoutes);
+app.use("/api/clients", clientRoutes);
+app.use("/api/projects", projectRoutes);
+app.use("/api/team", teamRoutes);
+app.use("/api/invoices", invoiceRoutes);
+app.use("/api/tasks", taskRoutes);
+app.use("/api/users", userRoutes);
 
 const errorHandler = require("./middleware/error");
 app.use(errorHandler);
