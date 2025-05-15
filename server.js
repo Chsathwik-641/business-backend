@@ -16,13 +16,14 @@ const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-app.use(
-  cors({
-    origin:
-      "https://business-frontend-git-main-chsathwik-641s-projects.vercel.app",
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin:
+//       "https://business-frontend-git-main-chsathwik-641s-projects.vercel.app",
+//     credentials: true,
+//   })
+// );
+app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
